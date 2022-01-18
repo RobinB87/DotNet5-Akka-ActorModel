@@ -4,28 +4,22 @@ using System;
 
 namespace MovieStreaming.Actors
 {
-    public class PlaybackActor : UntypedActor
+    public class PlaybackActor : ReceiveActor
     {
         public PlaybackActor()
         {
             Console.WriteLine("Creating a playback actor");
+
+            // A predicate is just a function that returns true or false
+            // Use predate for example to only handle messages with user id of 42
+            Receive<PlayMovieMessage>(message => HandlePlayMovieMessage(message),
+                message => message.UserId == 42);
         }
 
-        protected override void OnReceive(object message)
+        private void HandlePlayMovieMessage(PlayMovieMessage message)
         {
-            if (message is string)
-                Console.WriteLine("Received movie title " + message);
-
-            else if (message is PlayMovieMessage)
-            {
-                var m = message as PlayMovieMessage;
-
-                Console.WriteLine("Received movie title " + m.MovieTitle);
-                Console.WriteLine("Received user ID " + m.UserId);
-            }
-
-            else
-                Unhandled(message);
+            Console.WriteLine("Received movie title " + message.MovieTitle);
+            Console.WriteLine("Received user ID " + message.UserId);
         }
     }
 }

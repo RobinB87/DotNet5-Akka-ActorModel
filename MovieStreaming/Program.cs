@@ -19,7 +19,7 @@ namespace MovieStreaming
 
             var playbackActorRef = MovieStreamingActorSystem.ActorOf(playbackActorProps, "PlaybackActor");
 
-            playbackActorRef.Tell(new PlayMovieMessage("Akka.NET: The Movie", 42));
+            playbackActorRef.Tell(new PlayMovieMessage("Akka.NET: The Movie", 41));
 
             Console.ReadLine();
 
