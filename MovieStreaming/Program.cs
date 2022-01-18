@@ -1,5 +1,6 @@
-﻿using System;
-using Akka.Actor;
+﻿using Akka.Actor;
+using MovieStreaming.Actors;
+using System;
 
 namespace MovieStreaming
 {
@@ -11,6 +12,11 @@ namespace MovieStreaming
         {
             // The name is important as it forms part of the address if we referencing remote actors
             MovieStreamingActorSystem = ActorSystem.Create("MovieStreamingActorSystem");
+            Console.WriteLine("Actor system created");
+
+            var playbackActorProps = Props.Create<PlaybackActor>();
+
+            var playbackActorRef = MovieStreamingActorSystem.ActorOf(playbackActorProps, "PlaybackActor");
 
             Console.ReadLine();
 
