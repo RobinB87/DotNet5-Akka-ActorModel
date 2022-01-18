@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using System;
 
 namespace MovieStreaming.Actors
 {
@@ -6,12 +7,19 @@ namespace MovieStreaming.Actors
     {
         public PlaybackActor()
         {
-            System.Console.WriteLine("Creating a playback actor");
+            Console.WriteLine("Creating a playback actor");
         }
 
         protected override void OnReceive(object message)
         {
-            throw new System.NotImplementedException();
+            if (message is string)
+                Console.WriteLine("Received movie title " + message);
+
+            else if (message is int)
+                Console.WriteLine("Received user ID " + message);
+
+            else
+                Unhandled(message);
         }
     }
 }
