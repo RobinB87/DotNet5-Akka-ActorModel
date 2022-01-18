@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using MovieStreaming.Messages;
 using System;
 
 namespace MovieStreaming.Actors
@@ -15,8 +16,13 @@ namespace MovieStreaming.Actors
             if (message is string)
                 Console.WriteLine("Received movie title " + message);
 
-            else if (message is int)
-                Console.WriteLine("Received user ID " + message);
+            else if (message is PlayMovieMessage)
+            {
+                var m = message as PlayMovieMessage;
+
+                Console.WriteLine("Received movie title " + m.MovieTitle);
+                Console.WriteLine("Received user ID " + m.UserId);
+            }
 
             else
                 Unhandled(message);
